@@ -1,5 +1,6 @@
 package demo;
 
+import demo.pub.JavaType;
 import org.graalvm.polyglot.Context;
 
 public class Main {
