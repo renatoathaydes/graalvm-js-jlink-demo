@@ -1,0 +1,35 @@
+plugins {
+    id 'java-library'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+
+ext.graalVersion = '21.3.0'
+
+dependencies {
+    implementation "org.graalvm.sdk:graal-sdk:$graalVersion"
+    compileOnly 'org.jetbrains:annotations:22.0.0'
+    runtimeOnly "org.graalvm.truffle:truffle-api:$graalVersion"
+    runtimeOnly "org.graalvm.js:js:$graalVersion"
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task createRuntime(type: Copy) {
+    from configurations.runtimeClasspath
+    into "$buildDir/runtime"
+}
